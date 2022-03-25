@@ -189,12 +189,12 @@ typedef struct {
 	// stack based memory allocation for per-level things that
 	// won't be freed
 	void	(*Hunk_Clear )( void );
-	void	*(*Hunk_Alloc)( int size );
-	void	*(*Hunk_AllocateTempMemory)( int size );
+	void	*(*Hunk_Alloc)( size_t size );
+	void	*(*Hunk_AllocateTempMemory)( size_t size );
 	void	(*Hunk_FreeTempMemory)( void *block );
 
 	// dynamic memory allocator for things that need to be freed
-	void	*(*Malloc)( size_t bytes );
+	void	*(*Malloc)( int bytes );
 	void	(*Free)( void *buf );
 	void	(*Clear)( void );
 
@@ -216,7 +216,7 @@ typedef struct {
 	// a -1 return means the file does not exist
 	// NULL can be passed for buf to just determine existance
 	int		(*FS_FOpenFile)( const char *filename, fileHandle_t *file, qboolean uniqueFILE, qboolean quiet );
-	int		(*FS_Read)( void *buffer, int len, fileHandle_t f );
+	size_t	(*FS_Read)( void *buffer, size_t len, fileHandle_t f );
 	void	(*FS_CloseFile)( fileHandle_t f );
 	int		(*FS_Seek)( fileHandle_t f, long offset, fsOrigin_t origin );
 	int		(*FS_FileIsInPAK)( const char *filename, int *pChecksum );
@@ -225,7 +225,7 @@ typedef struct {
 	void	(*FS_FreeFile)( void *buf );
 	char **	(*FS_ListFiles)( const char *name, const char *extension, qboolean wantStubs, int *numfilesfound );
 	void	(*FS_FreeFileList)( char **filelist );
-	int		(*FS_WriteFile)( const char *qpath, const void *buffer, int size );
+	size_t	(*FS_WriteFile)( const char *qpath, const void *buffer, size_t size );
 	qboolean (*FS_FileExists)( const char *file );
 
 	// cm stuff
@@ -260,7 +260,7 @@ typedef struct {
 	orientation_t	(*TIKI_OrientationInternal)( dtiki_t *tiki, int entnum, int tagnum, float scale );
 	qboolean		(*TIKI_IsOnGroundInternal) (dtiki_t *tiki, int entnum, int tagnum, float threshold );
 	void			(*TIKI_SetPoseInternal)( void *skeletor, const frameInfo_t *frameInfo, int *bone_tag, vec4_t *bone_quat, float actionWeight );
-	void			*(*TIKI_Alloc)( int size );
+	void			*(*TIKI_Alloc)( size_t size );
 	float			(*GetRadiusInternal)( dtiki_t *tiki, int entnum, float scale );
 	float			(*GetCentroidRadiusInternal)( dtiki_t *tiki, int entnum, float scale, float *centroid );
 	void			(*GetFrameInternal)( dtiki_t *tiki, int entnum, skelAnimFrame_t *newFrame );

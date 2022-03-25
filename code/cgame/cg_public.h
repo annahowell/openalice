@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 //
 
+//#include "../tiki/tiki_shared.h"
+#include "../qcommon/qcommon.h"
+
+
 #ifndef __CG_PUBLIC_H__
 #define __CG_PUBLIC_H__
 
@@ -367,7 +371,7 @@ typedef struct clientGameImport_s {
 	void ( *Printf )( const char *fmt, ... );
 	void ( *DPrintf )( const char *fmt, ... );
 	void ( *DebugPrintf )( const char *fmt, ... );
-	void * ( *Malloc )( size_t size );
+	void * ( *Malloc )( int size );
 	void ( *Free )( void *ptr );
 	void ( *Error )( int level, const char *fmt, ... );
 	int ( *Milliseconds )( );
@@ -383,8 +387,8 @@ typedef struct clientGameImport_s {
 	void ( *Cmd_TokenizeString )( const char *textIn );
 	int ( *FS_ReadFile )( const char *qpath, void **buffer, qboolean quiet );
 	void ( *FS_FreeFile )( void *buffer );
-	int ( *FS_WriteFile )( const char *qpath, const void *buffer, int size );
-	void ( *FS_WriteTextFile )( const char *qpath, const void *buffer, int size );
+	size_t ( *FS_WriteFile )( const char *qpath, const void *buffer, size_t size );
+	void ( *FS_WriteTextFile )( const char *qpath, const void *buffer, size_t size );
 	void ( *SendConsoleCommand )( const char *text );
 	int ( *MSG_ReadBits )( int bits );
 	int ( *MSG_ReadChar )( );

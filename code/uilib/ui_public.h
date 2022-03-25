@@ -75,7 +75,7 @@ typedef struct uiimport_s {
 	void ( *File_ListFiles )( const char *filespec );
 	int ( *File_OpenFile )( const char *qpath, void **buffer );
 	void ( *File_FreeFile )( void *buffer );
-	void ( *File_WriteFile )( const char *qpath, const void *buffer, int size );
+	void ( *File_WriteFile )( const char *qpath, const void *buffer, size_t size );
 	uihandle_t ( *Snd_RegisterSound )( const char *sample, qboolean streamed );
 	void ( *Snd_PlaySound )( const char *sound_name );
 	qboolean ( *Alias_Add )( const char *alias, const char *name, const char *parameters );

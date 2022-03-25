@@ -423,7 +423,7 @@ void L_InitEvents( void )
 	g_eventstats	= gi.Cvar_Get( "g_eventstats", "0", 0 );
 #endif
 
-	gi.Printf("L_InitEvents\n");
+	//gi.Printf("L_InitEvents\n");
 	Event::LoadEvents();
 	ClassDef::BuildEventResponses();
 
