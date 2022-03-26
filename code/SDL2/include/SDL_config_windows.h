@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,9 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef _SDL_config_windows_h
-#define _SDL_config_windows_h
+#ifndef SDL_config_windows_h_
+#define SDL_config_windows_h_
+#define SDL_config_h_
 
 #include "SDL_platform.h"
 
@@ -76,6 +77,12 @@ typedef unsigned int uintptr_t;
 # define SIZEOF_VOIDP 4
 #endif
 
+#define HAVE_DDRAW_H 1
+#define HAVE_DINPUT_H 1
+#define HAVE_DSOUND_H 1
+#define HAVE_DXGI_H 1
+#define HAVE_XINPUT_H 1
+
 /* This is disabled by default to avoid C runtime dependencies and manifest requirements */
 #ifdef HAVE_LIBC
 /* Useful headers */
@@ -130,6 +137,9 @@ typedef unsigned int uintptr_t;
 #define HAVE_SIN 1
 #define HAVE_SINF 1
 #define HAVE_SQRT 1
+#define HAVE_SQRTF 1
+#define HAVE_TAN 1
+#define HAVE_TANF 1
 #if _MSC_VER >= 1800
 #define HAVE_STRTOLL 1
 #define HAVE_VSSCANF 1
@@ -145,15 +155,18 @@ typedef unsigned int uintptr_t;
 #endif
 
 /* Enable various audio drivers */
+#define SDL_AUDIO_DRIVER_WASAPI 1
 #define SDL_AUDIO_DRIVER_DSOUND 1
-#define SDL_AUDIO_DRIVER_XAUDIO2    1
+#define SDL_AUDIO_DRIVER_XAUDIO2    0
 #define SDL_AUDIO_DRIVER_WINMM  1
 #define SDL_AUDIO_DRIVER_DISK   1
 #define SDL_AUDIO_DRIVER_DUMMY  1
 
 /* Enable various input drivers */
 #define SDL_JOYSTICK_DINPUT 1
+#define SDL_JOYSTICK_XINPUT 1
 #define SDL_HAPTIC_DINPUT   1
+#define SDL_HAPTIC_XINPUT   1
 
 /* Enable various shared object loading systems */
 #define SDL_LOADSO_WINDOWS  1
@@ -195,6 +208,8 @@ typedef unsigned int uintptr_t;
 #define SDL_VIDEO_OPENGL_EGL    1
 #endif
 
+/* Enable Vulkan support */
+#define SDL_VIDEO_VULKAN 1
 
 /* Enable system power support */
 #define SDL_POWER_WINDOWS 1
@@ -207,4 +222,4 @@ typedef unsigned int uintptr_t;
 #define SDL_ASSEMBLY_ROUTINES   1
 #endif
 
-#endif /* _SDL_config_windows_h */
+#endif /* SDL_config_windows_h_ */
