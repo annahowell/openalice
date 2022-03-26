@@ -247,9 +247,9 @@ void CPlayer::Think()
 	ShakeCamera();
 	SmoothProcessDeltaAngles();
 
-	a[ 0 ] = abs( a[ 0 ] );
-	a[ 1 ] = abs( a[ 1 ] );
-	a[ 2 ] = abs( a[ 2 ] );
+	a[ 0 ] = fabs( a[ 0 ] );
+	a[ 1 ] = fabs( a[ 1 ] );
+	a[ 2 ] = fabs( a[ 2 ] );
 
 	avel = a - oldAngles;
 

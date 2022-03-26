@@ -700,9 +700,9 @@ void CG_MoveWeapon(int frametime)
 		deltaAngles[2] = -limit;
 	}*/
 
-	ratio[0] = abs( deltaAngles[0]/limit );
-	ratio[1] = abs( deltaAngles[1]/limit );
-	ratio[2] = abs( deltaAngles[2]/limit );
+	ratio[0] = fabs( deltaAngles[0]/limit );
+	ratio[1] = fabs( deltaAngles[1]/limit );
+	ratio[2] = fabs( deltaAngles[2]/limit );
 
 	/*deltaAngles[0] /= limit;
 	deltaAngles[1] /= limit;
