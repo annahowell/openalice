@@ -1611,7 +1611,6 @@ int Com_ModifyMsec( int msec ) {
 	return msec;
 }
 
-qboolean CL_FinishedIntro( void );
 
 /*
 =================
