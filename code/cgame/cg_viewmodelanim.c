@@ -260,7 +260,7 @@ void CG_ViewModelAnim() {
 	char tmp[128];
 	int i;
 	char *ptr;
-	tiki_t *fps, *tiki;
+	dtiki_t *fps, *tiki;
 	refEntity_t *ent;
 	bone_t *bone;
 	vec3_t v;

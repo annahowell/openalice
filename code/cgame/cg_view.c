@@ -155,7 +155,7 @@ void CG_TestModelPrevSkin_f (void) {
 
 static void CG_AddTestModel (void) {
 	int		i;
-	tiki_t	*tiki;
+	dtiki_t	*tiki;
 	// re-register the model, because the level may have changed
 	cg.testModelEntity.model = cgi.R_RegisterModel( cg.testModelName );
 	tiki = cgi.TIKI_RegisterModel( cg.testModelName );

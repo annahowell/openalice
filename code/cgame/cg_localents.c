@@ -226,7 +226,7 @@ void CG_AddFragment( localEntity_t *le ) {
 	vec3_t	newOrigin;
 	trace_t	trace;
 	refEntity_t *e;
-	tiki_t *tiki;
+	dtiki_t *tiki;
 
 	// if that's a tiki, we need to animate it
 	if(le->tiki) {

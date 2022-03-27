@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // cg_eventSystem.c
 
 #include "cg_local.h"
-#include "../qcommon/tiki_local.h"
+#include "../qcommon/tiki_script.h"
 
 typedef struct event_s {
 	centity_t *ent;

@@ -63,7 +63,7 @@ void CG_CentBoneLocal2World(bone_t *b, centity_t *cent, vec3_t outPos, vec3_t ou
 void CG_CentBoneIndexLocal2World(int boneIndex, centity_t *cent, vec3_t outPos, vec3_t outRot) {
 	CG_BoneLocal2World(cent->bones+boneIndex,cent->lerpOrigin,cent->lerpAngles,outPos,outRot);
 }
-int CG_TIKI_BoneIndexForName(tiki_t *tiki, char *name) {
+int CG_TIKI_BoneIndexForName(dtiki_t *tiki, char *name) {
 	int nameIndex;
 	int i;
 	nameIndex = cgi.TIKI_GetBoneNameIndex(name);

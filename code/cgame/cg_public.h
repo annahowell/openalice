@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 //
 
+#include "../qcommon/qcommon.h"
+
 #ifndef __CG_PUBLIC_H__
 #define __CG_PUBLIC_H__
 
@@ -301,22 +303,22 @@ typedef struct clientGameImport_s {
 	int( *Key_GetKey )( const char *binding );
 
 	// ley0k: animation system
-	const char *( *Anim_NameForNum )( tiki_t *tiki, int animNum );
-	int( *Anim_NumForName )( tiki_t *tiki, const char *name );
-	int( *Anim_Random )( tiki_t *tiki, const char *name );
-	int( *Anim_NumFrames )( tiki_t *tiki, int animNum );
-	float( *Anim_Time )( tiki_t *tiki, int animNum );
-	float( *Anim_Frametime )( tiki_t *tiki, int animNum );
-	int			( *Anim_Delta )( tiki_t *tiki, int animNum, vec3_t delta );
-	int			( *Anim_Flags )( tiki_t *tiki, int animNum );
-	float		( *Anim_CrossblendTime )( tiki_t *tiki, int animNum );
-	qboolean	( *Anim_HasCommands )( tiki_t *tiki, int animNum );
-	qboolean	( *Frame_Commands )( tiki_t *tiki, int animNum, int frameNum, tiki_cmd_t *tikiCmds );
-	qboolean( *Frame_CommandsTime )( tiki_t *pmdl, int animNum, float start, float end, tiki_cmd_t *tikiCmd );
+	const char *( *Anim_NameForNum )( dtiki_t *tiki, int animNum );
+	int( *Anim_NumForName )( dtiki_t *tiki, const char *name );
+	int( *Anim_Random )( dtiki_t *tiki, const char *name );
+	int( *Anim_NumFrames )( dtiki_t *tiki, int animNum );
+	float( *Anim_Time )( dtiki_t *tiki, int animNum );
+	float( *Anim_Frametime )( dtiki_t *tiki, int animNum );
+	int			( *Anim_Delta )( dtiki_t *tiki, int animNum, vec3_t delta );
+	int			( *Anim_Flags )( dtiki_t *tiki, int animNum );
+	float		( *Anim_CrossblendTime )( dtiki_t *tiki, int animNum );
+	qboolean	( *Anim_HasCommands )( dtiki_t *tiki, int animNum );
+	qboolean	( *Frame_Commands )( dtiki_t *tiki, int animNum, int frameNum, tiki_cmd_t *tikiCmds );
+	qboolean( *Frame_CommandsTime )( dtiki_t *pmdl, int animNum, float start, float end, tiki_cmd_t *tikiCmd );
 
 	// ley0k: TIKI tags
-	int			( *Tag_NumForName )( tiki_t *tiki, const char * name );
-	const char	*( *Tag_NameForNum )( tiki_t *tiki, int num );
+	int			( *Tag_NumForName )( dtiki_t *tiki, const char * name );
+	const char	*( *Tag_NameForNum )( dtiki_t *tiki, int num );
 
 	// IneQuation, wombat
 	int			( *R_Text_Width )( fontInfo_t *font, const char *text, int limit, qboolean useColourCodes );
@@ -324,14 +326,14 @@ typedef struct clientGameImport_s {
 	void		( *R_Text_Paint )( fontInfo_t *font, float x, float y, float scale, float alpha, const char *text, float adjust, int limit, qboolean useColourCodes, qboolean is640 );
 	void		( *R_Text_PaintChar )( fontInfo_t *font, float x, float y, float scale, int c, qboolean is640 );
 	// su44: MoHAA TIKI model system API
-	tiki_t*		( *TIKI_RegisterModel )( const char *fname );
+	dtiki_t*	( *TIKI_RegisterModel )( const char *fname );
 	bone_t*		( *TIKI_GetBones )( int numBones );
 	void		( *TIKI_SetChannels )( struct tiki_s *tiki, int animIndex, float animTime, float animWeight, bone_t *bones );
 	void		( *TIKI_AppendFrameBoundsAndRadius )( struct tiki_s *tiki, int animIndex, float animTime, float *outRadius, vec3_t outBounds[ 2 ] );
 	void		( *TIKI_Animate )( struct tiki_s *tiki, bone_t *bones );
 	int			( *TIKI_GetBoneNameIndex )( const char *boneName );
-	int			( *TIKI_GetAnimIndex )( tiki_t *tiki, const char *animName ); // returns -1 if not found
-	int			( *TIKI_GetBoneIndex )( tiki_t *tiki, const char *boneName ); // returns -1 if not found
+	int			( *TIKI_GetAnimIndex )( dtiki_t *tiki, const char *animName ); // returns -1 if not found
+	int			( *TIKI_GetBoneIndex )( dtiki_t *tiki, const char *boneName ); // returns -1 if not found
 	void		( *SetEyeInfo )( vec3_t origin, vec3_t angles );
 	// su44: these are here only for cg_parsemsg.c
 	int			( *MSG_ReadBits )( int bits );

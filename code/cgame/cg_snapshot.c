@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // not necessarily every single rendered frame
 
 #include "cg_local.h"
-#include "../qcommon/tiki_local.h"
+#include "../qcommon/tiki_script.h"
 
 
 /*
@@ -47,7 +47,7 @@ CG_TransitionEntity
 cent->nextState is moved to cent->currentState and events are fired
 ===============
 */
-static int TIKI_FrameNumForTime(tiki_t *tiki, int animIndex, float animTime) {
+static int TIKI_FrameNumForTime(dtiki_t *tiki, int animIndex, float animTime) {
 	int i;
 	tikiAnim_t *anim;
 	if(tiki->numAnims <= animIndex) {
@@ -92,7 +92,7 @@ static void CG_ExecuteFramesCommands(centity_t *cent, tikiAnim_t *anim, int star
 
 static void CG_TransitionEntity( centity_t *cent ) {
 	frameInfo_t *fi0, *fi1;
-	tiki_t *tiki0,*tiki1;
+	dtiki_t *tiki0,*tiki1;
 	tikiAnim_t *a0, *a1;
 	int f0, f1;
 	int i;
