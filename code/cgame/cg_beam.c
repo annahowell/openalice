@@ -293,7 +293,7 @@ static void CG_AddBeamsFromList(int owner, int beamshader) {
 				}
 			}
 
-			cgi.R_AddPolyToScene( beamshader, 4, newpoints/*, be->renderfx*/ );
+			cgi.R_AddPolyToScene( beamshader, 4, newpoints, be->renderfx );
 		}
 	}
 }
@@ -321,7 +321,7 @@ static void RenderSegment(vec3_t pt1a, vec3_t pt1b, vec3_t pt2a, vec3_t pt2b,
 	}
 
 	// Add a segment to the list
-	cgi.R_AddPolyToScene( beamshader, 4, points/*, renderfx */);
+	cgi.R_AddPolyToScene( beamshader, 4, points, renderfx);
 }
 
 #define MAX_SUBPOINTS 256
@@ -729,7 +729,7 @@ static void CG_BuildRendererBeam( vec3_t start, vec3_t end, float angleVar, int 
 			AddBeamSegmentToList( owner, points, beamnum, segnum++, renderfx );
 		} else {            
 			// Add it to the ref
-			cgi.R_AddPolyToScene( beamshader, 4, points/*, renderfx*/ );
+			cgi.R_AddPolyToScene( beamshader, 4, points, renderfx );
 		}
 
 
@@ -1195,7 +1195,7 @@ void CG_Rope(centity_t *cent) {
 	points[2].st[1] = 0;
 
 	// Add a segment to the list
-	cgi.R_AddPolyToScene( beamshader, 4, points/*, s1->renderfx*/ );
+	cgi.R_AddPolyToScene( beamshader, 4, points, s1->renderfx );
 
 	if ( s1->alpha > 0 ) {
 		// draw the bottom section
@@ -1224,7 +1224,7 @@ void CG_Rope(centity_t *cent) {
 		points[3].st[1] = endT;
 
 		// Add a segment to the list
-		cgi.R_AddPolyToScene( beamshader, 4, points/*, s1->renderfx*/ );
+		cgi.R_AddPolyToScene( beamshader, 4, points, s1->renderfx );
 	}
 }
 
