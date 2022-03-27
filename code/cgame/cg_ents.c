@@ -70,7 +70,7 @@ static void CG_EntityEffects( centity_t *cent ) {
 			cgi.S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, 
 				cgs.gameSounds[ cent->currentState.loopSound ] );
 		} else {
-			cgi.S_AddRealLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, 
+			cgi.S_AddRealLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin,
 				cgs.gameSounds[ cent->currentState.loopSound ] );
 		}
 	}
