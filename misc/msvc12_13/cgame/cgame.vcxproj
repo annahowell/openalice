@@ -180,6 +180,7 @@
     <ClCompile Include="..\..\..\code\cgame\cg_ents.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_eventSystem.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_info.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_local.cpp" />
     <ClCompile Include="..\..\..\code\cgame\cg_localents.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_main.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_marks.c" />
