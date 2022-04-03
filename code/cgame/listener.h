@@ -159,7 +159,7 @@
 // this has to be placed in front of the __LISTENER_H__
 // if it is not, listener.cpp will not compile
 //
-#if defined( GAME_DLL )
+#if defined(GAME_DLL)
 //
 // game dll specific defines
 //
@@ -170,14 +170,14 @@
 #ifndef __LISTENER_H__
 #define __LISTENER_H__
 
-#if defined( GAME_DLL )
+#if defined(GAME_DLL)
 //
 // game dll specific defines
 //
 #define EVENT_DebugPrintf gi.DebugPrintf
 #define EVENT_DPrintf gi.DPrintf
 #define EVENT_Printf gi.Printf
-#define EVENT_time   level.time
+#define EVENT_time level.time
 #define EVENT_realtime gi.Milliseconds()
 #define EVENT_Error gi.Error
 
@@ -188,37 +188,44 @@ class ScriptVariable;
 class ScriptThread;
 class Archiver;
 
-#elif defined ( CGAME_DLL )
+#elif defined(CGAME_DLL)
 //
 // cgame dll specific defines
 //
 #include "cg_local.h"
+
 #include "vector.h"
+
 #include "str.h"
+
 #include "../qcommon/qcommon.h"
 
 #define EVENT_DebugPrintf cgi.DebugPrintf
 #define EVENT_DPrintf cgi.Printf
 #define EVENT_Printf cgi.Printf
-#define EVENT_time   ( ( ( float )cg.time / 1000.0f ) )
-#define EVENT_realtime   cgi.Milliseconds()
+#define EVENT_time(((float) cg.time / 1000.0 f))
+#define EVENT_realtime cgi.Milliseconds()
 #define EVENT_Error cgi.Error
 
 #define EVENT_FILENAME "cg_events.txt"
 
-#elif defined ( UI_LIB )
+#elif defined(UI_LIB)
 
 #include "../fgame/q_shared.h"
+
 #include "vector.h"
+
 #include "str.h"
+
 #include "../qcommon/qcommon.h"
+
 #include "ui_local.h"
 
 #define EVENT_DebugPrintf Com_DebugPrintf
 #define EVENT_DPrintf Com_Printf
 #define EVENT_Printf Com_Printf
-#define EVENT_time   ( ( ( float )cls.realtime / 1000.0f ) )
-#define EVENT_realtime   Sys_Milliseconds()
+#define EVENT_time(((float) cls.realtime / 1000.0 f))
+#define EVENT_realtime Sys_Milliseconds()
 #define EVENT_Error Com_Error
 
 #define EVENT_FILENAME "ui_events.txt"
