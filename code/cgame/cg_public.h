@@ -26,14 +26,16 @@ extern "C"
 #endif
 
 #define  MAGIC_UNUSED_NUMBER 7777
-#define	CMD_BACKUP			64	
-#define	CMD_MASK			(CMD_BACKUP - 1)
+#define CMD_BACKUP                      64
+#define CMD_MASK                        (CMD_BACKUP - 1)
 // allow a lot of command backups for very fast systems
 // multiple commands may be combined into a single packet, so this
 // needs to be larger than PACKET_BACKUP
 
 
-#define	MAX_ENTITIES_IN_SNAPSHOT	256
+#define MAX_ENTITIES_IN_SNAPSHOT        1024
+#define MAX_SOUNDS_IN_SNAPSHOT          64
+#define MAX_HUDDRAW_ELEMENTS            256
 
 // snapshots are a view of the server at a given time
 
@@ -60,6 +62,63 @@ typedef struct {
 	server_sound_t	sounds[ MAX_SERVER_SOUNDS ];
 } snapshot_t;
 
+typedef struct stopwatch_s {
+	int iStartTime;
+	int iEndTime;
+} stopwatch_t;
+
+typedef struct hdelement_s {
+	qhandle_t hShader;
+	char shaderName[64];
+	int iX;
+	int iY;
+	int iWidth;
+	int iHeight;
+	float vColor[4];
+	int iHorizontalAlign;
+	int iVerticalAlign;
+	qboolean bVirtualScreen;
+	char string[2048];
+	char fontName[64];
+	fontheader_t *pFont;
+} hdelement_t;
+
+/*
+==================================================================
+
+clientAnim_t structure, wiped each new gamestate
+reserved for viewmodelanim
+
+==================================================================
+*/
+typedef struct clientAnim_s
+{
+	frameInfo_t		vmFrameInfo[MAX_FRAMEINFOS];
+	int				lastVMAnim;
+	int				lastVMAnimChanged;
+
+	int				currentVMAnimSlot;
+	int				currentVMDuration;
+
+	qboolean		crossBlending;
+
+	int				lastEquippedWeaponStat;
+	char			lastActiveItem[80];
+	int				lastAnimPrefixIndex;
+
+	vec3_t			currentVMPosOffset;
+
+	refEntity_t		ref;
+	dtiki_t			*tiki;
+
+} clientAnim_t;
+
+enum {
+	CGAME_EVENT_NONE,
+	CGAME_EVENT_TEAMMENU,
+	CGAME_EVENT_SCOREBOARD,
+	CGAME_EVENT_EDITHUD
+};
 
 /*
 ==================================================================
@@ -103,6 +162,9 @@ typedef struct
 	// for anything game related.  Get time from CG_ReadyToBuildScene.
 	int		      (*Milliseconds)( void );
 
+	const char * (*LV_ConvertString)(const char *string);
+
+
 	// console variable interaction
 	cvar_t *       (*Cvar_Get)( const char *var_name, const char *value, int flags );
 	void           (*Cvar_Set)( const char *var_name, const char *value );
@@ -112,6 +174,9 @@ typedef struct
 	char *         (*Argv)( int n );
 	char *         (*Args)( void );	// concatenation of all argv >= 1
    void           (*AddCommand)( const char *cmd );
+   void(*Cmd_Stuff)(const char *text);
+   void(*Cmd_Execute)(int exec_when, const char *text);
+   void(*Cmd_TokenizeString)(const char *textIn);
 
 	// a -1 return means the file does not exist
 	// NULL can be passed for buf to just determine existance
@@ -119,11 +184,32 @@ typedef struct
 	void	         (*FS_FreeFile)( void *buf );
 	void	         (*FS_WriteFile)( const char *qpath, const void *buffer, int size );
    void           (*FS_WriteTextFile)( const char *qpath, const void *buffer, int size );
+   void(*FS_CanonicalFilename)(char *name);
+   cvar_t *fsDebug;
+
+
 	// add commands to the local console as if they were typed in
 	// for map changing, etc.  The command is not executed immediately,
 	// but will be executed in order the next time console commands
 	// are processed
 	void	         (*SendConsoleCommand)( const char *text );
+
+	// Msg bits
+	int(*MSG_ReadBits)(int bits);
+	int(*MSG_ReadChar)();
+	int(*MSG_ReadByte)();
+	int(*MSG_ReadSVC)();
+	int(*MSG_ReadShort)();
+	int(*MSG_ReadLong)();
+	float(*MSG_ReadFloat)();
+	char * (*MSG_ReadString)();
+	char * (*MSG_ReadStringLine)();
+	float(*MSG_ReadAngle8)();
+	float(*MSG_ReadAngle16)();
+	void(*MSG_ReadData)(void *data, int len);
+	float(*MSG_ReadCoord)();
+	void(*MSG_ReadDir)(vec3_t dir);
+
 
    void           (*UpdateLoadingScreen)( void );
 	// =========== client specific functions ===============
@@ -150,6 +236,9 @@ typedef struct
    int		      (*CM_MarkFragments)( int numPoints, const vec3_t *points, const vec3_t projection, 
                                        int maxPoints, vec3_t pointBuffer,
                                        int maxFragments, markFragment_t *fragmentBuffer );
+   void(*CM_PrintBSPFileSizes)();
+   int(*CM_PointLeafnum)(const vec3_t p);
+   qboolean(*CM_LeafInPVS)(int leaf1, int leaf2);
 
 	// =========== sound function calls ===============
 
@@ -165,6 +254,10 @@ typedef struct
 	void				(*S_UpdateEntity)( int entityNum, const vec3_t origin, const vec3_t velocity, qboolean use_listener );
 	void				(*S_SetReverb)( int reverb_type, float reverb_level );
    void           (*S_SetGlobalAmbientVolumeLevel)( float volume );
+   float(*S_GetSoundTime)(sfxHandle_t handle);
+   int(*S_ChannelNameToNum)(const char *name);
+   const char * (*S_ChannelNumToName)(int channel);
+   int(*S_IsSoundPlaying)(int channelNumber, const char *name);
 
 	// =========== music function calls ===============
 
@@ -206,10 +299,28 @@ typedef struct
    float 	      (*R_ModelRadius)( clipHandle_t model );
    float          (*R_Noise)( float x, float y, float z, float t );
    void           (*R_DebugLine)( vec3_t start, vec3_t end, float r, float g, float b, float alpha );
+   int(*R_MarkFragments)(int numPoints, const vec3_t *points, const vec3_t projection, int maxPoints, vec3_t pointBuffer, int maxFragments, markFragment_t *fragmentBuffer, float fRadiusSquared);
+   int(*R_MarkFragmentsForInlineModel)(clipHandle_t bmodel, vec3_t vAngles, vec3_t vOrigin, int numPoints, vec3_t *points, vec3_t projection, int maxPoints, vec3_t pointBuffer, int maxFragments, markFragment_t *fragmentBuffer, float fRadiusSquared);
+   void(*R_GetInlineModelBounds)(int index, vec3_t mins, vec3_t maxs);
+   void(*R_GetLightingForDecal)(vec3_t light, vec3_t facing, vec3_t origin);
+   void(*R_GetLightingForSmoke)(vec3_t light, vec3_t origin);
+   int(*R_GatherLightSources)(vec3_t pos, vec3_t *lightPos, vec3_t *lightIntensity, int maxLights);
+   void(*R_PrintBSPFileSizes)();
+   int(*R_MapVersion)();
+   qhandle_t(*R_SpawnEffectModel)(const char *name, vec3_t pos, vec3_t axis[3]);
+   qhandle_t(*R_RegisterServerModel)(const char *name);
+   void(*R_UnregisterServerModel)(qhandle_t hModel);
+   void(*R_AddTerrainMarkToScene)(int terrainIndex, qhandle_t hShader, int numVerts, polyVert_t *verts, int renderFx);
+   fontheader_t * (*R_LoadFont)(const char *name);
+   void(*R_DrawString)(fontheader_t *font, const char *text, float x, float y, int maxLen, qboolean virtualScreen);
+
+
+
    // =========== Swipes =============
    void           (*R_SwipeBegin) ( float thistime, float life, qhandle_t shader );
    void           (*R_SwipePoint) ( vec3_t p1, vec3_t p2, float time );
    void           (*R_SwipeEnd) ( void );
+   baseshader_t * (*GetShader)(int shaderNum);
    int            (*R_GetShaderWidth)( qhandle_t shader );
    int            (*R_GetShaderHeight)( qhandle_t shader );
    void           (*R_DrawBox)( float x, float y, float w, float h );
@@ -217,6 +328,8 @@ typedef struct
 	// =========== data shared with the client =============
 	void	         (*GetGameState)( gameState_t *gamestate );
 	int	         (*GetSnapshot)( int snapshotNumber, snapshot_t *snapshot );
+	int(*GetServerStartTime)();
+	void(*SetTime)(int time);
    void		      (*GetCurrentSnapshotNumber)( int *snapshotNumber, int *serverTime );
    void		      (*GetGlconfig)( glconfig_t *glconfig );
 
@@ -230,12 +343,35 @@ typedef struct
 
    // ALIAS STUFF
    qboolean			(*Alias_Add)( const char * alias, const char * name, const char *parameters );
+   qboolean(*Alias_ListAdd)(AliasList_t *list, const char *alias, const char *name, const char *parameters);
+   const char * (*Alias_ListFindRandom)(AliasList_t *list, const char *alias, AliasListNode_t **ret);
    const char *   (*Alias_FindRandom)( const char * alias );
    void				(*Alias_Dump)( void );
    void				(*Alias_Clear)( void );
+   AliasList_t * (*AliasList_New)(const char *name);
+   void(*Alias_ListFindRandomRange)(AliasList_t *list, const char *alias, int *minIndex, int *maxIndex, float *totalWeight);
+   AliasList_t * (*Alias_GetGlobalList)();
+
+   // UI STUFF
+   void(*UI_ShowMenu)(const char *name, qboolean bForce);
+   void(*UI_HideMenu)(const char *name, qboolean bForce);
+   int(*UI_FontStringWidth)(fontheader_t *font, const char *string, int maxLen);
+   void(*UI_ShowScoreBoard)(const char *menuName);
+   void(*UI_HideScoreBoard)();
+   void(*UI_SetScoreBoardItem)(int itemNumber, const char *data1, const char *data2, const char *data3, const char *data4, const char *data5, const char *data6, const char *data7, const char *data8, vec3_t textColor, vec3_t backColor, qboolean isHeader);
+   void(*UI_DeleteScoreBoardItems)(int maxIndex);
+   void(*UI_ToggleDMMessageConsole)(int consoleMode);
+   hdelement_t *hudDrawElements;
+
+
+   // INPUT STUFF?
+   int(*Key_StringToKeynum)(const char *str);
+   const char * (*Key_KeynumToBindString)(int keyNum);
+   void(*Key_GetKeysForCommand)(const char *command, int *key1, int *key2);
 
    // ==================== TIKI STUFF ==========================
    // TIKI SPECIFIC STUFF
+   dtiki_t * (*R_Model_GetHandle)(qhandle_t handle);
    int            (*TIKI_GetHandle)( qhandle_t handle );
    int				(*NumAnims) ( int tikihandle );
    int				(*NumSkins) ( int tikihandle );
@@ -245,6 +381,16 @@ typedef struct
    void				(*CalculateBounds) ( int tikihandle, float scale, vec3_t mins, vec3_t maxs );
    void				(*FlushAll) ( void );
 	const char *   (*TIKI_NameForNum)( int tikihandle );
+	int(*TIKI_NumAnims)(dtiki_t *pmdl);
+	void(*TIKI_CalculateBounds)(dtiki_t *pmdl, float scale, vec3_t mins, vec3_t maxs);
+	const char * (*TIKI_Name)(dtiki_t *tiki);
+	void * (*TIKI_GetSkeletor)(dtiki_t *tiki, int entNum);
+	void(*TIKI_SetEyeTargetPos)(dtiki_t *tiki, int entNum, vec3_t pos);
+	void(*ForceUpdatePose)(refEntity_t *model);
+	orientation_t(*TIKI_Orientation)(refEntity_t *model, int tagNum);
+	qboolean(*TIKI_IsOnGround)(refEntity_t *model, int tagNum, float threshold);
+	dtiki_t * (*TIKI_FindTiki)(const char *path);
+
 
    // ANIM SPECIFIC STUFF
    const char *   (*Anim_NameForNum) ( int tikihandle, int animnum );
@@ -252,13 +398,19 @@ typedef struct
    int				(*Anim_Random) ( int tikihandle, const char * name );
    int				(*Anim_NumFrames) ( int tikihandle, int animnum );
    float				(*Anim_Time) ( int tikihandle, int animnum );
+   float(*Anim_Frametime)(dtiki_t *tiki, int animNum);
    void				(*Anim_Delta) ( int tikihandle, int animnum, vec3_t delta );
    int				(*Anim_Flags) ( int tikihandle, int animnum );
+   int(*Anim_FlagsSkel)(dtiki_t *tiki, int animNum);
    int				(*Anim_CrossblendTime) ( int tikihandle, int animnum );
    qboolean			(*Anim_HasCommands) ( int tikihandle, int animnum );
+   clientAnim_t *anim;
+
+
 
    // FRAME SPECIFIC STUFF
    qboolean       (*Frame_Commands) ( int tikihandle, int animnum, int framenum, tiki_cmd_t * tiki_cmd );
+   qboolean(*Frame_CommandsTime)(dtiki_t *pmdl, int animNum, float start, float end, tiki_cmd_t *tikiCmd);
    void				(*Frame_Delta) ( int tikihandle, int animnum, int framenum, vec3_t delta );
    float				(*Frame_Time) ( int tikihandle, int animnum, int framenum );
    void				(*Frame_Bounds)( int tikihandle, int animnum, int framenum, float scale, vec3_t mins, vec3_t maxs );
@@ -288,6 +440,12 @@ typedef struct
    void				(*TIKI_Alias_Clear)( int tikihandle );
 	const char *   (*TIKI_Alias_FindDialog)( int tikihandle, const char * alias, int random, int entity_number );
 
+	// MISC STUFF
+	void(*LoadResource)(const char *name);
+	stopwatch_t *stopWatch;
+	void *pUnknownVar;
+
+
 } clientGameImport_t;
 
 
@@ -306,6 +464,32 @@ typedef struct {
    qboolean (*CG_ConsoleCommand)( void );
    void     (*CG_GetRendererConfig)( void );
    void     (*CG_Draw2D)( void );
+
+   // FROM OPM's CG_PUBLIC.H 
+   void(*CG_EyePosition)(vec3_t *eyePos);
+   void(*CG_EyeOffset)(vec3_t *eyeOffset);
+   void(*CG_EyeAngles)(vec3_t *eyeAngles);
+   float(*CG_SensitivityScale)();
+   void(*CG_ParseCGMessage)();
+   void(*CG_RefreshHudDrawElements)();
+   void(*CG_HudDrawShader)(int info);
+   void(*CG_HudDrawFont)(int info);
+   int(*CG_GetParent)(int entNum);
+   float(*CG_GetObjectiveAlpha)();
+   int(*CG_PermanentMark)(vec3_t origin, vec3_t dir, float orientation, float sScale, float tScale, float red, float green, float blue, float alpha, qboolean doLighting, float sCenter, float tCenter, markFragment_t *markFragments, void *polyVerts);
+   int(*CG_PermanentTreadMarkDecal)(treadMark_t *treadMark, qboolean startSegment, qboolean doLighting, markFragment_t *markFragments, void *polyVerts);
+   int(*CG_PermanentUpdateTreadMark)(treadMark_t *treadMark, float alpha, float minSegment, float maxSegment, float maxOffset, float texScale);
+   void(*CG_ProcessInitCommands)(dtiki_t *tiki, refEntity_t *ent);
+   void(*CG_EndTiki)(dtiki_t *tiki);
+   char		*(*CG_GetColumnName)(int columnNum, int *columnWidth);
+   void(*CG_GetScoreBoardColor)(float *red, float *green, float *blue, float *alpha);
+   void(*CG_GetScoreBoardFontColor)(float *red, float *green, float *blue, float *alpha);
+   int(*CG_GetScoreBoardDrawHeader)();
+   void(*CG_GetScoreBoardPosition)(float *x, float *y, float *width, float *height);
+   int(*CG_WeaponCommandButtonBits)();
+   int(*CG_CheckCaptureKey)(int key, qboolean down, unsigned int time);
+
+   qboolean(*CG_Command_ProcessFile)(char *name, qboolean quiet, dtiki_t *curTiki);
 
    } clientGameExport_t;
 
