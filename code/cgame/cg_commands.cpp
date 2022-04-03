@@ -4037,7 +4037,7 @@ void ClientGameCommandManager::AnimateTempModel
    if ( !p->addedOnce )
       {
       // Process entry commands
-      CG_ProcessEntityCommands( p->cgd.tikihandle, TIKI_FRAME_CMD_ENTRY, p->ent.anim, -1, &p->ent, NULL );
+      CG_ProcessEntityCommands( p->cgd.tikihandle, TIKI_FRAME_ENTRY, p->ent.anim, -1, &p->ent, NULL );
       }
 
    if ( numframes < 2 )
@@ -6357,7 +6357,7 @@ void CG_ClientCommands
    if ( ( anim != new_anim ) && ( anim >= 0 ) )
       {
       // play the exit command
-      CG_ProcessEntityCommands( tikihandle, TIKI_FRAME_CMD_EXIT, anim, cent->currentState.number, ent, cent );
+      CG_ProcessEntityCommands( tikihandle, TIKI_FRAME_EXIT, anim, cent->currentState.number, ent, cent );
 #ifndef NDEBUG 
       CG_ClientCommandDebugMessage( 
          cent, 
@@ -6379,7 +6379,7 @@ void CG_ClientCommands
       if ( anim != new_anim )
          {
          // play the exit command
-         CG_ProcessEntityCommands( tikihandle, TIKI_FRAME_CMD_ENTRY, new_anim, cent->currentState.number, ent, cent );
+         CG_ProcessEntityCommands( tikihandle, TIKI_FRAME_ENTRY, new_anim, cent->currentState.number, ent, cent );
 #ifndef NDEBUG 
          CG_ClientCommandDebugMessage( 
             cent, 
@@ -6423,7 +6423,7 @@ void CG_ClientCommands
                   state->numframes 
                   );
 #endif
-               state->last_cmd_time = cg.time + TIKI_FRAME_CMD_MAXFRAMERATE;
+               state->last_cmd_time = cg.time + TIKI_FRAME_MAXFRAMERATE;
                CG_ProcessEntityCommands( tikihandle, frame, new_anim, cent->currentState.number, ent, cent );
                frame = ( frame + 1 ) % state->numframes;
                }
@@ -6452,7 +6452,7 @@ void CG_ClientCommands
             state->numframes 
             );
 #endif
-         state->last_cmd_time = cg.time + TIKI_FRAME_CMD_MAXFRAMERATE;
+         state->last_cmd_time = cg.time + TIKI_FRAME_MAXFRAMERATE;
          CG_ProcessEntityCommands( tikihandle, new_frame, new_anim, cent->currentState.number, ent, cent );
          }
       }
