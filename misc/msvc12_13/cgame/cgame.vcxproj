@@ -164,45 +164,59 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\code\cgame\cg_class.h" />
+    <ClInclude Include="..\..\..\code\cgame\cg_commands.h" />
+    <ClInclude Include="..\..\..\code\cgame\cg_container.h" />
+    <ClInclude Include="..\..\..\code\cgame\cg_listener.h" />
     <ClInclude Include="..\..\..\code\cgame\cg_local.h" />
     <ClInclude Include="..\..\..\code\cgame\cg_public.h" />
+    <ClInclude Include="..\..\..\code\cgame\cg_vector.h" />
+    <ClInclude Include="..\..\..\code\cgame\class.h" />
+    <ClInclude Include="..\..\..\code\cgame\container.h" />
+    <ClInclude Include="..\..\..\code\cgame\Linklist.h" />
+    <ClInclude Include="..\..\..\code\cgame\listener.h" />
+    <ClInclude Include="..\..\..\code\cgame\script.h" />
+    <ClInclude Include="..\..\..\code\cgame\str.h" />
+    <ClInclude Include="..\..\..\code\cgame\tr_types.h" />
+    <ClInclude Include="..\..\..\code\cgame\vector.h" />
     <ClInclude Include="..\..\..\code\game\bg_local.h" />
     <ClInclude Include="..\..\..\code\game\bg_public.h" />
     <ClInclude Include="..\..\..\code\qcommon\qcommon.h" />
     <ClInclude Include="..\..\..\code\qcommon\q_shared.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\code\cgame\cg_beam.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_beam.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\cg_class.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\cg_commands.cpp" />
     <ClCompile Include="..\..\..\code\cgame\cg_consolecmds.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_draw.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_drawtools.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_effects.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_drawtools.cpp" />
     <ClCompile Include="..\..\..\code\cgame\cg_ents.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_eventSystem.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_info.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_local.cpp" />
-    <ClCompile Include="..\..\..\code\cgame\cg_localents.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_event.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_lightstyles.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\cg_listener.cpp" />
     <ClCompile Include="..\..\..\code\cgame\cg_main.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_marks.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_modelanim.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_parsemsg.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_players.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_player.cpp" />
     <ClCompile Include="..\..\..\code\cgame\cg_playerstate.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_predict.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_rain.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_servercmds.c" />
     <ClCompile Include="..\..\..\code\cgame\cg_snapshot.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_specialfx.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_ubersound.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_sound.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\cg_specialfx.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\cg_swipe.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\cg_syscalls.c" />
+    <ClCompile Include="..\..\..\code\cgame\cg_testemitter.cpp" />
     <ClCompile Include="..\..\..\code\cgame\cg_view.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_viewmodelanim.c" />
-    <ClCompile Include="..\..\..\code\cgame\cg_weapons.c" />
+    <ClCompile Include="..\..\..\code\cgame\class.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\container.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\listener.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\script.cpp" />
+    <ClCompile Include="..\..\..\code\cgame\str.cpp" />
     <ClCompile Include="..\..\..\code\game\bg_lib.cpp" />
     <ClCompile Include="..\..\..\code\game\bg_misc.cpp" />
     <ClCompile Include="..\..\..\code\game\bg_pmove.cpp" />
     <ClCompile Include="..\..\..\code\game\bg_slidemove.cpp" />
-    <ClCompile Include="..\..\..\code\qcommon\q_math.c" />
-    <ClCompile Include="..\..\..\code\qcommon\q_shared.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
