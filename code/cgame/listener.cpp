@@ -240,7 +240,7 @@
 
 #else
 
-#include "client.h"
+#include "../client/client.h"
 
 #endif
 

@@ -55,6 +55,8 @@
 
 #include "cg_local.h"
 #include "cg_commands.h"
+#include "../game/surfaceflags.h"
+
 
 extern refEntity_t *current_entity;
 extern int current_tiki;

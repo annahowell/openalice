@@ -15,7 +15,7 @@
 //
 // Comment history has been pruned. See original falltools102 for comments
 
-#include "../qcommon/tiki.h"
+#include "../qcommon/qcommon.h"
 
 #ifndef __CG_PUBLIC_H__
 #define __CG_PUBLIC_H__

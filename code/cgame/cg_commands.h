@@ -274,6 +274,7 @@ TIKI file, similar to ScriptMaster in the server game dll.
 #include "script.h"
 #include "vector.h"
 #include "../qcommon/qcommon.h"
+#include "../tiki/tiki_shared.h"
 
 #define EMITTER_DEFAULT_LIFE 1000
 #define MAX_EMITTERS 32
