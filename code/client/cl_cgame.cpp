@@ -315,7 +315,7 @@ CL_GetServerCommand
 Set up argc/argv for the given command
 ===================
 */
-qboolean CL_GetServerCommand( int serverCommandNumber, qboolean differentServer ) {
+qboolean CL_GetServerCommand( int serverCommandNumber/*, qboolean differentServer*/ ) {
 	char	*s;
 	char	*cmd;
 	static char bigConfigString[BIG_INFO_STRING];
@@ -857,7 +857,7 @@ void CL_InitCGame( void ) {
 	// init for this gamestate
 	// use the lastExecutedServerCommand instead of the serverCommandSequence
 	// otherwise server commands sent just before a gamestate are dropped
-	cge->CG_Init( &cgi, clc.serverMessageSequence, clc.lastExecutedServerCommand, clc.clientNum );
+	cge->CG_Init( &cgi, clc.serverMessageSequence, clc.lastExecutedServerCommand/*, clc.clientNum*/ );
 
 	ClearNewConfigFlag();
 	TIKI_FinishLoad();
@@ -909,7 +909,7 @@ void CL_CGameRendering( stereoFrame_t stereo ) {
 		cl.oldServerTime = cl.serverStartTime;
 	}
 
-	cge->CG_DrawActiveFrame( cl.serverTime, cl.serverTime - cl.oldServerTime, stereo, clc.demoplaying );
+	cge->CG_DrawActiveFrame( cl.serverTime, cl.serverTime - cl.oldServerTime, stereo/*, clc.demoplaying*/ );
 
 	cl.oldServerTime = cl.serverTime;
 }

@@ -1652,14 +1652,14 @@ void Event::PrintEvent
 
 	text += "\n";
 
-   if ( g_showevents->integer == 2 )
+   /*if ( g_showevents->integer == 2 )
 		{
-		EVENT_DebugPrintf( text.c_str() );
+	   EVENT_DebugPrintf( text.c_str() );
 		}
 	else
-		{
+		{*/
 		EVENT_DPrintf( text.c_str() );
-		}
+		//}
 	}
 
 #endif
@@ -2795,7 +2795,8 @@ qboolean Listener::ProcessEvent
 					}
 #endif
 
-				EVENT_DebugPrintf( "'%s' : %d\n", event->getName().c_str(), end - start );
+				// EVENT_DebugPrintf( "'%s' : %d\n", event->getName().c_str(), end - start );
+				EVENT_DPrintf("'%s' : %d\n", event->getName().c_str(), end - start);
 				}
          }
 
