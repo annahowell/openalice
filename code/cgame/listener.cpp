@@ -958,7 +958,8 @@ void EventArgDef::Setup
       while( 1 )
          {
          // find opening '['
-         tokptr = strchr( ptr, '[' );
+         tokptr = (char*)strchr( ptr, '[' );
+
          if ( !tokptr )
             {
             break;
