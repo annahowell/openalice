@@ -25,8 +25,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cgame_hook", "..\cgame_hook
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FLEX_Bison", "..\FLEX_Bison\FLEX_Bison.vcxproj", "{C43E74A6-EA43-4264-B8E5-F6E4CC9843DC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "omohconverter", "..\omohconverter\omohconverter.vcxproj", "{2573DDFC-0576-4766-8A8E-E482035D12AF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -115,16 +113,6 @@ Global
 		{C43E74A6-EA43-4264-B8E5-F6E4CC9843DC}.Release|Win32.ActiveCfg = Release|Win32
 		{C43E74A6-EA43-4264-B8E5-F6E4CC9843DC}.Release|Win32.Build.0 = Release|Win32
 		{C43E74A6-EA43-4264-B8E5-F6E4CC9843DC}.Release|x64.ActiveCfg = Release|x64
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Debug|Win32.Build.0 = Debug|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Debug|x64.ActiveCfg = Debug|x64
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Release|Win32.ActiveCfg = Release|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Release|Win32.Build.0 = Release|Win32
-		{2573DDFC-0576-4766-8A8E-E482035D12AF}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
