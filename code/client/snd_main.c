@@ -312,7 +312,7 @@ void MUSIC_CheckForStoppedSongs( void )
 S_StartSound
 =================
 */
-void S_StartSound( const vec3_t origin, int entNum, int entChannel, sfxHandle_t sfxHandle, float volume, float minDist, float pitch, float maxDist, qboolean streamed )
+void S_StartSound( /*const*/ vec3_t origin, int entNum, int entChannel, sfxHandle_t sfxHandle, float volume, float minDist/*, float pitch, float maxDist, qboolean streamed*/)
 {
 	if( !si.StartSound || sfxHandle == -1 ) {
 		return;
@@ -320,11 +320,11 @@ void S_StartSound( const vec3_t origin, int entNum, int entChannel, sfxHandle_t 
 
 	soundparm.volume = volume;
 	soundparm.minDist = minDist;
-	soundparm.pitch = pitch;
-	soundparm.maxDist = maxDist;
-	soundparm.streamed = streamed;
+	//soundparm.pitch = pitch;
+	//soundparm.maxDist = maxDist;
+	//soundparm.streamed = streamed;
 
-	si.StartSound( origin, entNum, entChannel, sfxHandle );
+	si.StartSound( origin, entNum, entChannel, sfxHandle);
 }
 
 /*
@@ -368,17 +368,17 @@ void S_StartLocalSound( const char *sound_name, qboolean force_load )
 	{
 		soundparm.volume = pSoundAlias->volumeMod * randweight() + pSoundAlias->volume;
 		soundparm.minDist = -1.0;
-		soundparm.pitch = pSoundAlias->pitchMod * randweight() + pSoundAlias->pitch;
-		soundparm.maxDist = -1.0;
-		soundparm.streamed = pSoundAlias->streamed;
+		//soundparm.pitch = pSoundAlias->pitchMod * randweight() + pSoundAlias->pitch;
+		//soundparm.maxDist = -1.0;
+		//soundparm.streamed = pSoundAlias->streamed;
 	}
 	else
 	{
 		soundparm.volume = -1.0;
 		soundparm.minDist = -1.0;
-		soundparm.pitch = 1.0;
-		soundparm.maxDist = -1.0;
-		soundparm.streamed = qfalse;
+		//soundparm.pitch = 1.0;
+		//soundparm.maxDist = -1.0;
+		//soundparm.streamed = qfalse;
 	}
 
 	si.StartLocalSound( sfxHandle, CHAN_MENU );
@@ -471,8 +471,7 @@ void S_ClearLoopingSounds( void )
 S_AddLoopingSound
 =================
 */
-void S_AddLoopingSound( const vec3_t origin, const vec3_t velocity,
-		sfxHandle_t sfx, float volume, float minDist, float maxDist, float pitch, int flags )
+void S_AddLoopingSound( const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx, float volume, float minDist/*, float maxDist, float pitch, int flags*/)
 {
 	if( !si.AddLoopingSound ) {
 		return;
@@ -480,9 +479,9 @@ void S_AddLoopingSound( const vec3_t origin, const vec3_t velocity,
 
 	soundparm.volume = volume;
 	soundparm.minDist = minDist;
-	soundparm.maxDist = maxDist;
-	soundparm.pitch = pitch;
-	soundparm.flags = flags;
+	//soundparm.maxDist = maxDist;
+	//soundparm.pitch = pitch;
+	//soundparm.flags = flags;
 
 	si.AddLoopingSound( ENTITYNUM_WORLD, origin, velocity, sfx );
 }
@@ -615,11 +614,11 @@ qboolean S_IsSoundRegistered( const char *name )
 S_RegisterSound
 =================
 */
-sfxHandle_t	S_RegisterSound( const char *sample, qboolean compressed, qboolean force_load )
+sfxHandle_t	S_RegisterSound( const char *sample, qboolean force_load )
 {
 	if( si.RegisterSound ) {
 		if ( !strstr(sample, "sound/null.wav") )
-			return si.RegisterSound( sample, compressed );
+			return si.RegisterSound( sample );
 		else return -1;
 	} else {
 		return 0;

@@ -514,8 +514,8 @@ static int	FloatAsInt( float f ) {
 CL_RegisterSound
 ====================
 */
-sfxHandle_t CL_RegisterSound( const char *sample, qboolean streamed ) {
-	return S_RegisterSound( sample, streamed, qfalse );
+sfxHandle_t CL_RegisterSound( const char *sample) {
+	return S_RegisterSound( sample, qfalse );
 }
 
 /*

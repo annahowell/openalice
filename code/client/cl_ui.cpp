@@ -3658,7 +3658,7 @@ void CL_FillUIDef( void ) {
 }
 
 sfxHandle_t UI_RegisterSound( const char *sample, qboolean streamed ) {
-	return S_RegisterSound( sample, streamed, qfalse );
+	return S_RegisterSound( sample, qfalse );
 }
 
 void UI_StartLocalSound( const char *sound_name ) {

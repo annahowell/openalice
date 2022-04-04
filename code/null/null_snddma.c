@@ -47,7 +47,7 @@ void SNDDMA_Submit(void)
 {
 }
 
-sfxHandle_t S_RegisterSound( const char *sample, qboolean compressed, qboolean force_load )
+sfxHandle_t S_RegisterSound( const char *sample, qboolean force_load )
 {
 	return 0;
 }

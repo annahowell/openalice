@@ -353,10 +353,10 @@ S_RegisterSound
 Creates a default buzz sound if the file can't be loaded
 ==================
 */
-sfxHandle_t	S_Base_RegisterSound( const char *name, qboolean compressed ) {
+sfxHandle_t	S_Base_RegisterSound( const char *name ) {
 	sfx_t	*sfx;
 
-	compressed = qfalse;
+	qboolean compressed = qfalse;
 	if( !s_soundStarted ) {
 		return 0;
 	}
@@ -402,7 +402,7 @@ void S_Base_BeginRegistration( void ) {
 		Com_Memset( s_knownSfx, '\0', sizeof( s_knownSfx ) );
 		Com_Memset( sfxHash, '\0', sizeof( sfx_t * ) * LOOP_HASH );
 
-		S_Base_RegisterSound( "sound/feedback/hit.wav", qfalse );		// changed to a sound in baseq3
+		S_Base_RegisterSound( "sound/feedback/hit.wav" );		// changed to a sound in baseq3
 	}
 }
 
@@ -570,9 +570,9 @@ static void S_Base_StartSoundEx( const vec3_t origin, int entityNum, int entchan
 
 	sfx = &s_knownSfx[ sfxHandle ];
 
-	if( soundparm.streamed ) {
-		sfx->iFlags |= SFX_FLAG_STREAMED;
-	}
+	//if( soundparm.streamed ) {
+	//	sfx->iFlags |= SFX_FLAG_STREAMED;
+	//}
 
 	if( sfx->inMemory == qfalse ) {
 		S_memoryLoad( sfx );

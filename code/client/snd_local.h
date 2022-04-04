@@ -191,10 +191,10 @@ typedef struct {
 typedef struct {
 	float volume;
 	float minDist;
-	float pitch;
-	float maxDist;
-	qboolean streamed;
-	int flags;
+	//float pitch;
+	//float maxDist;
+	//qboolean streamed;
+	//int flags;
 } sndparm_t;
 
 // Interface between Q3 sound "api" and the sound backend
@@ -216,7 +216,7 @@ typedef struct
 	void (*Update)( void );
 	void (*DisableSounds)( void );
 	void (*BeginRegistration)( void );
-	sfxHandle_t (*RegisterSound)( const char *sample, qboolean compressed );
+	sfxHandle_t (*RegisterSound)( const char *sample );
 	qboolean (*IsSoundPlaying)( int channelNumber, const char *name );
 	void (*ClearSoundBuffer)( void );
 	void (*SoundInfo)( void );

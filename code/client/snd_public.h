@@ -38,7 +38,7 @@ void S_Shutdown( void );
 void S_FadeSound( float fTime );
 
 // if origin is NULL, the sound will be dynamically sourced from the entity
-void S_StartSound( const vec3_t origin, int entNum, int entChannel, sfxHandle_t sfxHandle, float volume, float minDist, float pitch, float maxDist, qboolean streamed );
+void S_StartSound( /*const*/ vec3_t origin, int entNum, int entChannel, sfxHandle_t sfxHandle, float volume, float minDist/*, float pitch, float maxDist, qboolean streamed*/);
 void S_StartLocalSound( const char *sound_name, qboolean force_load );
 
 void S_StartBackgroundTrack( const char *intro, const char *loop );
@@ -56,13 +56,13 @@ void S_StopAllSounds( qboolean stop_music );
 
 // all continuous looping sounds must be added before calling S_Update
 void S_ClearLoopingSounds( void );
-void S_AddLoopingSound( const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx, float volume, float minDist, float maxDist, float pitch, int flags );
+void S_AddLoopingSound( const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx, float volume, float minDist/*, float maxDist, float pitch, int flags*/ );
 void S_AddRealLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx );
 void S_StopLoopingSound( int entityNum );
 
 // recompute the reletive volumes for all running sounds
 // reletive to the given entityNum / orientation
-void S_Respatialize( int entityNum, const vec3_t origin, vec3_t axis[ 3 ] );
+void S_Respatialize( int entityNum, vec_t *origin, vec3_t axis[ 3 ] );
 void S_RespatializeEx( int entityNum, const vec3_t origin, vec3_t axis[ 3 ], int inwater );
 
 float S_GetSoundTime( sfxHandle_t handle );
@@ -85,7 +85,7 @@ qboolean S_IsSoundRegistered( const char *name );
 // RegisterSound will allways return a valid sample, even if it
 // has to create a placeholder.  This prevents continuous filesystem
 // checks for missing files
-sfxHandle_t	S_RegisterSound( const char *sample, qboolean compressed, qboolean force_load );
+sfxHandle_t	S_RegisterSound( const char *sample, qboolean force_load );
 
 void S_DisplayFreeMemory( void );
 
