@@ -46,14 +46,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "../qcommon/q_shared.h"
 
 #include <linklist.h>
-#include <mem_blockalloc.h>
+#include "../qcommon/mem_blockalloc.h"
 #include <vector.h>
-#include <str.h>
+#include "../qcommon/str.h"
 #include <container.h>
 #include <const_str.h>
-#include <short3.h>
-#include <con_set.h>
-#include <con_arrayset.h>
+#include "../qcommon/short3.h"
+#include "../qcommon/con_set.h"
+#include "../qcommon/con_arrayset.h"
 #include <scriptexception.h>
 #include <class.h>
 #include <containerclass.h>
