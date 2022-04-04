@@ -809,13 +809,14 @@ typedef enum
 
 typedef enum {
 	RT_MODEL,
+	RT_POLY,
 	RT_SPRITE,
 	RT_BEAM,
-	RT_PORTALSURFACE,		// doesn't draw anything, just info for portals
 	RT_RAIL_CORE,
 	RT_RAIL_RINGS,
 	RT_LIGHTNING,
-	RT_SPLASH,
+	RT_PORTALSURFACE,		// doesn't draw anything, just info for portals
+
 	RT_MAX_REF_ENTITY_TYPE
 } refEntityType_t;
 
@@ -878,6 +879,9 @@ typedef struct {
 	float		shadowPlane;		// projection shadows go here, stencils go slightly lower
 	int			oldframe;
 	float		backlerp;			// 0.0 = current, 1.0 = old
+	int			oldanim;
+	int			anim;
+
 } refEntity_t;
 
 typedef struct {
