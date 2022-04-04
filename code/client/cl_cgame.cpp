@@ -909,7 +909,7 @@ void CL_CGameRendering( stereoFrame_t stereo ) {
 		cl.oldServerTime = cl.serverStartTime;
 	}
 
-	cge->CG_DrawActiveFrame( cl.serverTime, cl.serverTime - cl.oldServerTime, stereo/*, clc.demoplaying*/ );
+	cge->CG_DrawActiveFrame( cl.serverTime, /*cl.serverTime - cl.oldServerTime,*/ stereo, clc.demoplaying);
 
 	cl.oldServerTime = cl.serverTime;
 }
