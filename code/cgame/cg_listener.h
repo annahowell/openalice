@@ -226,51 +226,43 @@ inline qboolean Event::Exists
 	}
 
 
-inline Event Event::Find
-	(
-	const char *command
-	)
-
-	{
+inline Event Event::Find(const char *command)
+{
 	int num;
 	str c;
 
-	if ( !commandList )
-		{
+	if ( !commandList ) {
 		initCommandList();
-		}
+	}
 
 	c = command;
 	num = FindEvent( c );
-	if ( num )
-		{
-		return Event( num );
-		}
 
-	return NullEvent;
+	if ( num ) {
+		Event result = Event(num);
+
+		return Event( num );
 	}
 
-inline Event Event::Find
-	(
-	str &command
-	)
+	return NullEvent;
+}
 
-	{
+inline Event Event::Find (str &command)
+{
 	int num;
 
-	if ( !commandList )
-		{
+	if ( !commandList ) {
 		initCommandList();
-		}
+	}
 
 	num = FindEvent( command );
-	if ( num )
-		{
+	
+	if ( num ) {
 		return Event( num );
-		}
+	}
 
 	return NullEvent;
-	}
+}
 
 inline void Event::SetSource
 	(

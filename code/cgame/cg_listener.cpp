@@ -345,30 +345,22 @@ Event::Event()
    name = NULL;
 	}
 
-Event::Event
-	(
-	int num
-	)
-
-	{
-	if ( !commandList )
-		{
+Event::Event(int num)
+{
+	if ( !commandList ) {
 		initCommandList();
-		}
+	}
 
 	assert( ( num > 0 ) && num <= commandList->NumObjects() );
 
-   if ( ( num <= 0 ) || ( num > commandList->NumObjects() ) )
-      {
-      num = 0;
-      name = NULL;
-   	info.flags = 0;
-      }
-   else
-      {
-      name = commandList->ObjectAt( num )->c_str();
-	   info.flags = flagList->ObjectAt( num );
-      }
+   if ( ( num <= 0 ) || ( num > commandList->NumObjects() ) ) {
+		num = 0;
+		name = NULL;
+		info.flags = 0;
+   } else {
+		name = commandList->ObjectAt( num )->c_str();
+		info.flags = flagList->ObjectAt( num );
+   }
 
 	eventnum = num;
 	data = NULL;
@@ -376,7 +368,7 @@ Event::Event
 	info.source = EV_FROM_CODE;
 	info.linenumber = 0;
 	threadnum = -1;
-	}
+}
 
 Event::Event
 	(
@@ -450,40 +442,35 @@ Event::Event
 		}
 	}
 
-Event::Event
-	(
-	const char *command,
-	int flags
-	)
-
-	{
+Event::Event (const char *command, int flags)
+{
 	str c;
-   str *t;
+	str *t;
 
-	if ( !commandList )
-		{
+	if ( !commandList ){
 		initCommandList();
-		}
+	}
 
 	c = command;
 	eventnum = FindEvent( c );
-	if ( !eventnum )
-		{
-      t = new str( c );
+	
+	if ( !eventnum ) {
+		t = new str( c );
 		eventnum = commandList->AddObject( t );
+
 		// check for default flags
-		if ( flags == -1 )
-			{
+		if ( flags == -1 ) {
 			flags = 0;
-			}
+		}
+
 		flagList->AddObject( ( int )flags );
 		sortedList->AddObject( eventnum );
 		dirtylist = qtrue;
-		}
+	}
 
-   // Use the name stored in the command list in case the string passed in
-   // is not in static memory.
-   name = commandList->ObjectAt( eventnum )->c_str();
+	// Use the name stored in the command list in case the string passed in
+	// is not in static memory.
+	name = commandList->ObjectAt( eventnum )->c_str();
 
 	data = NULL;
 	info.inuse = 0;
@@ -495,20 +482,19 @@ Event::Event
 	int &flagobj = flagList->ObjectAt( eventnum );
 
 	// check for default flags
-	if ( flags == -1 )
-		{
+	if ( flags == -1 ) {
 		flags = flagobj;
-		}
+	}
 
 	assert( flags == flagobj );
-	if ( flags != flagobj )
-		{
+
+	if ( flags != flagobj ){
 		// Flags not equal.  Use combined value.
 		flagobj |= flags;
-		}
+	}
 
 	info.flags = flagobj;
-	}
+}
 
 Event::Event
 	(
@@ -1374,6 +1360,7 @@ void CG_ProcessPendingEvents
 		}
 	}
 
+/*
 void CG_InitEvents
 	(
 	void
@@ -1388,7 +1375,8 @@ void CG_InitEvents
 
 	BuildEventResponses();
 	CG_ClearEventList();
-   CG_InitCommandManager();
+    CG_InitCommandManager();
 	// Sort the list before we go on since we won't be adding any more events
 	Event::SortEventList();
 	}
+	*/
