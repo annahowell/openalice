@@ -222,7 +222,7 @@ typedef struct
 	clipHandle_t   (*CM_InlineModel)( int index );		// 0 = world, 1+ = bmodels
 	int			   (*CM_NumInlineModels)( void );
 	int			   (*CM_PointContents)( const vec3_t p, int headnode );
-	int			   (*CM_TransformedPointContents)( const vec3_t p, int headnode, vec3_t origin, vec3_t angles );
+	int(*CM_TransformedPointContents)(const vec3_t point, clipHandle_t model, const vec3_t origin, const vec3_t angles);
 	void  	      (*CM_BoxTrace)( trace_t *results, const vec3_t start, const vec3_t end,
      						             const vec3_t mins, const vec3_t maxs,
 	 						             int headnode, int brushmask, qboolean cylinder );
@@ -288,7 +288,7 @@ typedef struct
 	qhandle_t      (*R_RegisterShaderNoMip)( const char *name );
    void           (*R_AddRefEntityToScene)( refEntity_t *ent );
    void           (*R_AddRefSpriteToScene)( refEntity_t *ent );
-   void           (*R_AddLightToScene)( vec3_t origin, float intensity, float r, float g, float b, int type );
+   void           (*R_AddLightToScene)( const vec3_t origin, float intensity, float r, float g, float b, int type );
 	void	         (*R_AddPolyToScene)( qhandle_t hShader, int numVerts, const polyVert_t *verts, int renderfx );
 	void	         (*R_SetColor)( const vec4_t rgba );	// NULL = 1,1,1,1
 	void	         (*R_DrawStretchPic) ( float x, float y, float w, float h, 
@@ -393,23 +393,23 @@ typedef struct
 
 
    // ANIM SPECIFIC STUFF
-   const char *   (*Anim_NameForNum) ( int tikihandle, int animnum );
-   int				(*Anim_NumForName) ( int tikihandle, const char * name );
-   int				(*Anim_Random) ( int tikihandle, const char * name );
-   int				(*Anim_NumFrames) ( int tikihandle, int animnum );
-   float				(*Anim_Time) ( int tikihandle, int animnum );
+   const char *   (*Anim_NameForNum) ( dtiki_t *tikihandle, int animnum );
+   int				(*Anim_NumForName) (dtiki_t* tikihandle, const char * name );
+   int				(*Anim_Random) ( dtiki_t *tikihandle, const char * name );
+   int				(*Anim_NumFrames) ( dtiki_t *tikihandle, int animnum );
+   float				(*Anim_Time) (dtiki_t *tikihandle, int animnum );
    float(*Anim_Frametime)(dtiki_t *tiki, int animNum);
    void				(*Anim_Delta) ( int tikihandle, int animnum, vec3_t delta );
-   int				(*Anim_Flags) ( int tikihandle, int animnum );
+   int				(*Anim_Flags) ( dtiki_t *tikihandle, int animnum );
    int(*Anim_FlagsSkel)(dtiki_t *tiki, int animNum);
-   int				(*Anim_CrossblendTime) ( int tikihandle, int animnum );
-   qboolean			(*Anim_HasCommands) ( int tikihandle, int animnum );
+   float			(*Anim_CrossblendTime) ( dtiki_t *tikihandle, int animnum );
+   qboolean			(*Anim_HasCommands) ( dtiki_t *tikihandle, int animnum );
    clientAnim_t *anim;
 
 
 
    // FRAME SPECIFIC STUFF
-   qboolean       (*Frame_Commands) ( int tikihandle, int animnum, int framenum, tiki_cmd_t * tiki_cmd );
+   qboolean       (*Frame_Commands) ( dtiki_t *tikihandle, int animnum, int framenum, tiki_cmd_t * tiki_cmd );
    qboolean(*Frame_CommandsTime)(dtiki_t *pmdl, int animNum, float start, float end, tiki_cmd_t *tikiCmd);
    void				(*Frame_Delta) ( int tikihandle, int animnum, int framenum, vec3_t delta );
    float				(*Frame_Time) ( int tikihandle, int animnum, int framenum );
@@ -417,14 +417,14 @@ typedef struct
    float				(*Frame_Radius)( int tikihandle, int animnum, int framenum );
 
    // SURFACE SPECIFIC STUFF
-   int				(*Surface_NameToNum) ( int tikihandle, const char * name );
+   int				(*Surface_NameToNum) ( dtiki_t *tikihandle, const char * name );
    const char *   (*Surface_NumToName) ( int tikihandle, int num );
    int				(*Surface_Flags) ( int tikihandle, int num );
    int				(*Surface_NumSkins) ( int tikihandle, int num );
 
    // TAG SPECIFIC STUFF
-   int				(*Tag_NumForName) ( int tikihandle, const char * name );
-   const char *   (*Tag_NameForNum) ( int tikihandle, int num );
+   int				(*Tag_NumForName) ( dtiki_t *tikihandle, const char * name );
+   const char *   (*Tag_NameForNum) ( dtiki_t *tikihandle, int num );
    orientation_t  (*Tag_Orientation) ( int tikihandle, int anim, int frame, int tagnum, float scale, int *bone_tag, vec4_t *bone_quat );
    orientation_t  (*Tag_OrientationEx) ( int tikihandle, int anim, int frame, int tagnum, float scale, int *bone_tag, vec4_t *bone_quat,
       int crossblend_anim, int crossblend_frame, float crossblend_lerp, qboolean uselegs, qboolean usetorso, int torso_anim, int torso_frame,

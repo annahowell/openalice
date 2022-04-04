@@ -1878,32 +1878,30 @@ const char *FS_PrepFileWrite( const char *filename ) {
 ============
 FS_WriteFile
 
-Filename are reletive to the quake search path
+Filename are relative to the quake search path
 ============
 */
-size_t FS_WriteFile( const char *qpath, const void *buffer, size_t size ) {
+void FS_WriteFile(const char *qpath, const void *buffer, int size) {
 	fileHandle_t f;
-	size_t len;
 
-	if ( !fs_searchpaths ) {
-		Com_Error( ERR_FATAL, "Filesystem call made without initialization\n" );
+	if (!fs_searchpaths) {
+		Com_Error(ERR_FATAL, "Filesystem call made without initialization");
 	}
 
-	if ( !qpath || !buffer ) {
-		Com_Error( ERR_FATAL, "FS_WriteFile: NULL parameter" );
+	if (!qpath || !buffer) {
+		Com_Error(ERR_FATAL, "FS_WriteFile: NULL parameter");
 	}
 
-	f = FS_FOpenFileWrite( qpath );
-	if ( !f ) {
-		Com_Printf( "Failed to open %s\n", qpath );
-		return 0;
+	f = FS_FOpenFileWrite(qpath);
+
+	if (!f) {
+		Com_Printf("Failed to open %s\n", qpath);
+		return;
 	}
 
-	len = FS_Write( buffer, size, f );
+	FS_Write(buffer, size, f);
 
-	FS_FCloseFile( f );
-
-	return len;
+	FS_FCloseFile(f);
 }
 
 /*
@@ -1913,16 +1911,18 @@ FS_WriteTextFile
 Filename are reletive to the quake search path
 ============
 */
-void FS_WriteTextFile( const char *qpath, const void *buffer, size_t size ) {
+void FS_WriteTextFile( const char *qpath, const void *buffer, int size ) {
 	fileHandle_t f;
 
 	f = FS_FOpenTextFileWrite( qpath );
+
 	if( !f ) {
 		Com_Printf( "Failed to open %s\n", qpath );
 		return;
 	}
 
 	FS_Write( buffer, size, f );
+
 	FS_FCloseFile( f );
 }
 

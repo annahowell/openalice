@@ -676,10 +676,10 @@ void	FS_FreeFile( void *buffer );
 const char	*FS_PrepFileWrite( const char *filename );
 // prepares the file to be written
 
-size_t	FS_WriteFile( const char *qpath, const void *buffer, size_t size );
+void	FS_WriteFile( const char *qpath, const void *buffer, int size );
 // writes a complete file, creating any subdirectories needed
 
-void	FS_WriteTextFile( const char *qpath, const void *buffer, size_t size );
+void	FS_WriteTextFile( const char *qpath, const void *buffer, int size );
 // writes a complete text file, creating any subdirectories needed
 
 int		FS_filelength( fileHandle_t f );

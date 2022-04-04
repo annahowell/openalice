@@ -75,11 +75,11 @@ typedef struct uiimport_s {
 	void ( *File_ListFiles )( const char *filespec );
 	int ( *File_OpenFile )( const char *qpath, void **buffer );
 	void ( *File_FreeFile )( void *buffer );
-	void ( *File_WriteFile )( const char *qpath, const void *buffer, size_t size );
+	void ( *File_WriteFile )( const char *qpath, const void *buffer, int size );
 	uihandle_t ( *Snd_RegisterSound )( const char *sample, qboolean streamed );
 	void ( *Snd_PlaySound )( const char *sound_name );
 	qboolean ( *Alias_Add )( const char *alias, const char *name, const char *parameters );
-	const char *( *Alias_FindRandom )( const char *alias, AliasListNode_t **ret );
+	const char *( *Alias_FindRandom )( const char *alias);
 	const char *( *Cvar_GetString )( const char *name, const char *defval );
 	cvar_t *( *Cvar_Find )( const char *var_name );
 	void ( *Cvar_Set )( const char *var_name, const char *value );

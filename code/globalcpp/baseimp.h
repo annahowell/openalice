@@ -39,7 +39,7 @@ typedef struct baseImport_s
 	void( *Cvar_Set )( const char *varName, const char *varValue );
 	int( *FS_ReadFile )( const char *qpath, void **buffer, qboolean quiet );
 	void( *FS_FreeFile )( void *buffer );
-	size_t( *FS_WriteFile )( const char *qpath, const void *buffer, size_t size );
+	void( *FS_WriteFile )( const char *qpath, const void *buffer, int size );
 	fileHandle_t( *FS_FOpenFileWrite )( const char *fileName );
 	fileHandle_t( *FS_FOpenFileAppend )( const char *fileName );
 	fileHandle_t( *FS_FOpenFile )( const char *fileName );
