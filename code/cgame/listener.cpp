@@ -2177,7 +2177,8 @@ Event::Event
    // suppress it if it starts with '_'
 	if ( documentation && ( command[ 0 ] != '_' ) )
       {
-		eventDefList->AddObject( ( Event * )this );
+		Event *e = (Event *)this;
+		eventDefList->AddObject( e );
       }
    else
       {
