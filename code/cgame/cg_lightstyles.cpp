@@ -397,7 +397,7 @@ void createLightstyleFromTGA( int num, const char *filename )
       cgi.Free( data );
    }
 
-void CG_SetLightStyle( int num, const char *s )
+void CG_SetLightStyle( int num, char *s )
 	{
 	char	*r, *g, *b, *a;
 	int	j, k, n, len;
