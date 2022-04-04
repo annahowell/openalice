@@ -1836,7 +1836,7 @@ void ClientGameCommandManager::BeginTagTraceImpactMark
    )
    {
    // Setup ending function
-   endblockfcn    = EndTagTraceImpactMark;
+   endblockfcn    = &ClientGameCommandManager::EndTagTraceImpactMark;
    m_spawnthing   = InitializeSpawnthing( &m_localemitter );
 
    // Get the tagname and orientation
@@ -1912,7 +1912,7 @@ void ClientGameCommandManager::BeginTagTraceImpactSpawn
    )
    {
    // Setup ending function
-   endblockfcn    = EndTagTraceImpactSpawn;
+   endblockfcn    = &ClientGameCommandManager::EndTagTraceImpactSpawn;
    m_spawnthing   = InitializeSpawnthing( &m_localemitter );
 
    // Get the tagname and orientation
@@ -3289,7 +3289,7 @@ void ClientGameCommandManager::BeginOriginSpawn
       }
 
    // Setup ending function
-   endblockfcn = EndOriginSpawn;
+   endblockfcn = &ClientGameCommandManager::EndOriginSpawn;
 
    // Init the thing we are going to spawn
    m_spawnthing = InitializeSpawnthing( &m_localemitter );
@@ -3353,7 +3353,7 @@ void ClientGameCommandManager::BeginTagEmitter
 
    {
    // Setup ending function
-   endblockfcn   = EndTagEmitter;
+   endblockfcn   = &ClientGameCommandManager::EndTagEmitter;
 
    // Init the emitter
    m_spawnthing = CreateNewEmitter();
@@ -3397,7 +3397,7 @@ void ClientGameCommandManager::BeginTagBeamEmitter
 
    { 
    // Setup ending function
-   endblockfcn   = EndTagBeamEmitter;
+   endblockfcn   = &ClientGameCommandManager::EndTagBeamEmitter;
 
    // Init the emitter
    m_spawnthing = CreateNewEmitter();
@@ -3455,7 +3455,7 @@ void ClientGameCommandManager::BeginOriginEmitter
 
    { 
    // Setup ending function
-   endblockfcn   = EndOriginEmitter;
+   endblockfcn   = &ClientGameCommandManager::EndOriginEmitter;
 
    // Init the emitter
    m_spawnthing = CreateNewEmitter();
@@ -3496,7 +3496,7 @@ void ClientGameCommandManager::BeginOriginBeamEmitter
 
    { 
    // Setup ending function
-   endblockfcn   = EndOriginBeamEmitter;
+   endblockfcn   = &ClientGameCommandManager::EndOriginBeamEmitter;
 
    // Init the emitter
    m_spawnthing = CreateNewEmitter();
@@ -3587,7 +3587,7 @@ void ClientGameCommandManager::BeginTagSpawn
    str            tagname;
 
    // Setup ending function
-   endblockfcn = EndTagSpawn;
+   endblockfcn = &ClientGameCommandManager::EndTagSpawn;
    
    // Init the thing we are going to spawn
    m_spawnthing = InitializeSpawnthing( &m_localemitter );
@@ -3622,7 +3622,7 @@ void ClientGameCommandManager::BeginTagBeamSpawn
    str            tagname;
 
    // Setup ending function
-   endblockfcn = EndTagBeamSpawn;
+   endblockfcn = &ClientGameCommandManager::EndTagBeamSpawn;
    
    // Init the thing we are going to spawn
    m_spawnthing = InitializeSpawnthing( &m_localemitter );
@@ -3720,7 +3720,7 @@ void ClientGameCommandManager::BeginOriginBeamSpawn
 
    { 
    // Setup ending function
-   endblockfcn   = EndOriginBeamSpawn;
+   endblockfcn   = &ClientGameCommandManager::EndOriginBeamSpawn;
 
    // Init the emitter
    m_spawnthing = CreateNewEmitter();
