@@ -398,7 +398,7 @@ typedef struct {
 	vec3_t			inlineModelMidpoints[MAX_MODELS];
 
    // TIKI handles for all models
-   int            model_tiki[ MAX_MODELS ];
+   dtiki_t            *model_tiki[ MAX_MODELS ];
 
 	clientInfo_t	clientinfo[MAX_CLIENTS];
 

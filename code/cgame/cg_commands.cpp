@@ -3544,7 +3544,7 @@ void ClientGameCommandManager::GetOrientation (str tagname, spawnthing_t *sp)
       return;
       }
 
-   tagnum = cgi.Tag_NumForName( current_tiki, tagname.c_str() );
+   tagnum = cgi.Tag_NumForName(cgs.model_tiki[current_tiki], tagname.c_str() );
 
    if ( tagnum == -1 )
       {
@@ -4032,7 +4032,7 @@ void ClientGameCommandManager::AnimateTempModel
    // Calc frame stuff
    frametime = 1000.0f * cgi.Frame_Time( p->cgd.tikihandle, p->ent.anim, 0 );
    deltatime = cg.time - p->lastAnimTime;
-   numframes = cgi.Anim_NumFrames( p->cgd.tikihandle, p->ent.anim );
+   numframes = cgi.Anim_NumFrames( cgs.model_tiki[p->cgd.tikihandle], p->ent.anim );
 
    if ( !p->addedOnce )
       {
@@ -4872,11 +4872,11 @@ void ClientGameCommandManager::SpawnTempModel
       // Set the animation
       if ( m_spawnthing->animName.length() && ( p->cgd.tikihandle > 0 ) )
          {
-         ent.anim = cgi.Anim_Random( p->cgd.tikihandle, m_spawnthing->animName );
+         ent.anim = cgi.Anim_Random(cgs.model_tiki[p->cgd.tikihandle], m_spawnthing->animName );
          }
       else if ( ent.reType == RT_MODEL && ( p->cgd.tikihandle > 0 ) )
          {
-         ent.anim = cgi.Anim_Random( p->cgd.tikihandle, "idle" );
+         ent.anim = cgi.Anim_Random( cgs.model_tiki[p->cgd.tikihandle], "idle" );
          }
 
       // Randomize the scale
@@ -4936,7 +4936,7 @@ void ClientGameCommandManager::SpawnTempModel
       // If animateonce is set, set the life = to the length of the anim
       if ( ( m_spawnthing->cgd.flags & T_ANIMATEONCE ) && ( p->ent.anim > 0 ) )
          {
-         p->cgd.life = cgi.Anim_Time( p->cgd.tikihandle, p->ent.anim ) * 1000.0f;
+         p->cgd.life = cgi.Anim_Time(cgs.model_tiki[p->cgd.tikihandle], p->ent.anim ) * 1000.0f;
          }
       else
          {
@@ -5120,7 +5120,7 @@ void ClientGameCommandManager::SpawnTempModel
          {
          if ( m_spawnthing->cgd.flags & (T_GLOBALFADEIN|T_GLOBALFADEOUT) )
             {
-            int numframes = cgi.Anim_NumFrames( current_tiki, current_entity->anim );
+            int numframes = cgi.Anim_NumFrames(cgs.model_tiki[current_tiki], current_entity->anim );
 
             p->cgd.alpha = (float)current_entity->frame / (float)numframes;
 
@@ -6233,7 +6233,7 @@ void CG_ProcessEntityCommands
 
    tiki_cmd_t tikicmds;
     
-   if ( cgi.Frame_Commands( tikihandle, anim, frame, &tikicmds ) )
+   if ( cgi.Frame_Commands( cgs.model_tiki[tikihandle], anim, frame, &tikicmds ) )
       {
       current_entity = ent;
 		current_centity = cent;
@@ -6363,7 +6363,7 @@ void CG_ClientCommands
          cent, 
          "Client Commands: Entity %d Exiting Anim: %s\n", 
          cent->currentState.number, 
-         cgi.Anim_NameForNum( tikihandle, anim ) 
+         cgi.Anim_NameForNum(cgs.model_tiki[tikihandle], anim )
          );
 #endif
       frame = 0;
@@ -6385,7 +6385,7 @@ void CG_ClientCommands
             cent, 
             "Client Commands: Entity %d Entering Anim: %s\n", 
             cent->currentState.number, 
-            cgi.Anim_NameForNum( tikihandle, new_anim ) 
+            cgi.Anim_NameForNum(cgs.model_tiki[tikihandle], new_anim )
             );
 #endif
          }
@@ -6418,7 +6418,7 @@ void CG_ClientCommands
                   "Client Commands: cg.time %d Catching up Entity: %d Anim: %s frame: %d numframes: %d\n",
                   cg.time,
                   cent->currentState.number, 
-                  cgi.Anim_NameForNum( tikihandle, new_anim ), 
+                  cgi.Anim_NameForNum(cgs.model_tiki[tikihandle], new_anim ),
                   frame, 
                   state->numframes 
                   );
@@ -6447,7 +6447,7 @@ void CG_ClientCommands
             "Client Commands: cg.time %d Processing Entity: %d Anim: %s frame: %d numframes: %d\n",
             cg.time,
             cent->currentState.number, 
-            cgi.Anim_NameForNum( tikihandle, new_anim ), 
+            cgi.Anim_NameForNum(cgs.model_tiki[tikihandle], new_anim ),
             new_frame, 
             state->numframes 
             );
@@ -6889,16 +6889,17 @@ void ClientGameCommandManager::CGEvent
    {
    str      modelname;
    vec3_t   axis[3];
-   int      tikihandle; 
+   //int      tikihandle; 
 
-   tikihandle = cgs.model_tiki[cent->currentState.modelindex];
+   //tikihandle = cgs.model_tiki[cent->currentState.modelindex].name;
 
-   if ( tikihandle == -1 )
-      return;
+   //if ( tikihandle == -1 )
+   //   return;
 
    CG_EntityEffects( cent );
 
-   modelname = cgi.TIKI_NameForNum( tikihandle );
+   // modelname = cgi.TIKI_NameForNum( tikihandle );
+   modelname = cgs.model_tiki[cent->currentState.modelindex]->name;
    m_spawnthing = InitializeSpawnthing( &m_localemitter );
 
    AnglesToAxis( cent->lerpAngles, axis );

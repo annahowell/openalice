@@ -203,7 +203,7 @@ void ClientGameCommandManager::Swipe
          swipe.cntPoint.time = cg.time;
          VectorCopy ( current_entity->origin, swipe.cntPoint.points[0] );
 
-         tagnum_start = cgi.Tag_NumForName( current_tiki, swipe.tagname_start.c_str() );
+         tagnum_start = cgi.Tag_NumForName(cgs.model_tiki[current_tiki], swipe.tagname_start.c_str() );
          or = cgi.Tag_LerpedOrientation( current_tiki, current_entity, tagnum_start );
 
          // Clear out the points
@@ -225,7 +225,7 @@ void ClientGameCommandManager::Swipe
          // Copy tmp into the startpoint
          VectorCopy ( tmp, swipe.cntPoint.points[0] );
 
-         tagnum_end = cgi.Tag_NumForName( current_tiki, swipe.tagname_end.c_str() );
+         tagnum_end = cgi.Tag_NumForName(cgs.model_tiki[current_tiki], swipe.tagname_end.c_str() );
          or = cgi.Tag_LerpedOrientation( current_tiki, current_entity, tagnum_end );
 
          if ( ev->NumArgs() > 0 )
