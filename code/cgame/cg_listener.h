@@ -239,9 +239,7 @@ inline Event Event::Find(const char *command)
 	num = FindEvent( c );
 
 	if ( num ) {
-		Event result = Event(num);
-
-		return Event( num );
+		return *Event( num );
 	}
 
 	return NullEvent;
@@ -258,7 +256,7 @@ inline Event Event::Find (str &command)
 	num = FindEvent( command );
 	
 	if ( num ) {
-		return Event( num );
+		return *Event( num );
 	}
 
 	return NullEvent;

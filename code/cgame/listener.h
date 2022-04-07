@@ -666,7 +666,7 @@ inline Event Event::Find(
 	num = FindEvent(c);
 	if (num) {
 		Event ev(num);
-		return ev;
+		return *ev;
 	}
 
 	return NullEvent;
@@ -686,7 +686,7 @@ inline Event Event::Find(
 	num = FindEvent(command);
 	if (num) {
 		Event ev(num);
-		return ev;
+		return *ev;
 	}
 
 	return NullEvent;
