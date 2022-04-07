@@ -234,6 +234,7 @@ typedef enum {
 // moh pm_flags
 #define	PMF_DUCKED				(1<<0)
 #define	PMF_VIEW_PRONE			(1<<1)
+#define PMF_TIME_TELEPORT       (1<<3)    // pm_time is teleport - This was 1<<4 in fakktools
 #define PMF_SPECTATING			(1<<4)
 #define	PMF_RESPAWNED			(1<<5)
 #define	PMF_NO_PREDICTION		(1<<6)
@@ -587,6 +588,17 @@ typedef enum {
 	ET_EXEC_COMMANDS,
 	ET_SPRITE
 } entityType_t;
+
+#define EF_EVENT_BIT1           0x00000001              // toggled every time an event changes
+#define EF_EVENT_BIT2           0x00000002              // toggled every time an event changes
+#define EF_EVENT_BITS   (EF_EVENT_BIT1|EF_EVENT_BIT2)
+#define EF_TELEPORT_BIT (1<<2)                  // toggled every time the origin abruptly changes
+#define  EF_EVERYFRAME          (1<<3)                  // def commands will be run every client frame
+#define  EF_ANTISBJUICE         (1<<4)                  // anti sucknblow juice
+#define  EF_LEFT_TARGETED  (1<<5)         // this entity is being targeted by the left hand
+#define  EF_RIGHT_TARGETED (1<<6)         // this entity is being targeted by the right hand
+#define  EF_DONT_PROCESS_COMMANDS (1<<7)  // don't process client commands for this entity
+
 
 // su44; yes, I know there is no q3 trajectory_t in MoHAA,
 // but I need it for fgame rotating doors code.
