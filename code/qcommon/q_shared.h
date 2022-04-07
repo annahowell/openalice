@@ -1844,8 +1844,11 @@ typedef enum {
 } trType_t;
 
 typedef struct {
-	int trTime;
-	vec3_t trDelta;
+	trType_t        trType;
+	int             trTime;
+	int             trDuration;                     // if non 0, trTime + trDuration = stop time
+	vec3_t  trBase;
+	vec3_t  trDelta;                           // velocity, etc
 } trajectory_t;
 
 typedef struct frameInfo_s {
@@ -1890,6 +1893,7 @@ typedef struct entityState_s {
 	int		eFlags;
 
 	trajectory_t pos;
+	trajectory_t apos;
 
 	vec3_t	netorigin;
 	vec3_t	origin;
@@ -1916,10 +1920,18 @@ typedef struct entityState_s {
 
 	int		modelindex;
 	int		usageIndex;
+	int      frame;
 	int		skinNum;
 	int		wasframe;
 	frameInfo_t frameInfo[ MAX_FRAMEINFOS ];
 	float	actionWeight;
+
+	int      anim;
+	int      crossblend_time;  // in milliseconds so it can be transmitted as a short
+
+	int      torso_anim;
+	int      torso_frame;
+	int      torso_crossblend_time; // in milliseconds so it can be transmitted as a short
 
 	int		bone_tag[ NUM_BONE_CONTROLLERS ];
 	vec3_t	bone_angles[ NUM_BONE_CONTROLLERS ];
