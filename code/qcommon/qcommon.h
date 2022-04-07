@@ -839,9 +839,6 @@ typedef struct {
 	short int	frame;				// also used as MODEL_BEAM's diameter
 	float		scale;
 
-	// previous data for frame interpolation
-	vec3_t		oldorigin;			// also used as MODEL_BEAM's "to"
-
 	// texturing
 	int			skinNum;			// inline skin index
 	qhandle_t	customShader;		// use one image for the entire thing
@@ -881,6 +878,34 @@ typedef struct {
 	float		backlerp;			// 0.0 = current, 1.0 = old
 	int			oldanim;
 	int			anim;
+	qboolean    useAngles;
+
+	// torso animation
+	int         torso_anim;                // animation
+	int         torso_oldanim;             // old animation
+	short       torso_frame;
+	short       torso_oldframe;            // old frame
+
+	// data for animation cross-blending
+	float       crossblend_lerp;
+	float       crossblend_backlerp;       // 0.0 = current, 1.0 = old
+
+	int         crossblend_anim;           // crossblend animation
+	short       crossblend_frame;          // crossblend anim frame
+	short       crossblend_oldframe;       // crossblend anim old frame
+	int         uselegs;                   // non-zero means use leg animation
+
+	float       torso_crossblend_lerp;
+	float       torso_crossblend_backlerp; // 0.0 = current, 1.0 = old
+
+	int         torso_crossblend_anim;     // crossblend animation
+	short       torso_crossblend_frame;    // crossblend anim frame
+	short       torso_crossblend_oldframe; // crossblend anim old frame
+	int         usetorso;                  // non-zero means use torso animation
+
+	// previous data for frame interpolation
+	float       oldorigin[3];              // also used as MODEL_BEAM's "to"
+	float       torso_backlerp;            // 0.0 = current, 1.0 = old
 
 } refEntity_t;
 
@@ -905,6 +930,13 @@ typedef struct {
 
 	// text messages for deform text shaders
 	char		text[ MAX_RENDER_STRINGS ][ MAX_RENDER_STRING_LENGTH ];
+
+	// sky portal stuff
+	qboolean    sky_portal;
+	float       sky_alpha;
+	vec3_t      sky_origin;
+	vec3_t      sky_axis[3];
+
 } refdef_t;
 
 /*
