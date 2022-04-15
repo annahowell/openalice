@@ -245,7 +245,7 @@
 // by the server in the server stored userinfos, or stashed in a cvar.
 
 
-#include "../fgame/q_shared.h"
+#include "../qcommon/q_shared.h"
 #include "tr_types.h"
 #include "../fgame/bg_public.h"
 #include "../qcommon/cm_public.h"

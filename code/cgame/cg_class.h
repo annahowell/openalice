@@ -30,7 +30,7 @@
 #ifndef __CG_CLASS_H__
 #define __CG_CLASS_H__
 
-#include "../fgame/q_shared.h"
+#include "../qcommon/q_shared.h"
 #include "../game/linklist.h"
  
 class Class;
