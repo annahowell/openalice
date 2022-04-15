@@ -38,7 +38,7 @@
 #include <stdarg.h>
 #include "cg_class.h"
 #include "cg_listener.h"
-#include "../fgame/linklist.h"
+#include "../game/linklist.h"
 #include "../qcommon/qcommon.h"
 #include "cg_local.h"
 
