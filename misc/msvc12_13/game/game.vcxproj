@@ -363,6 +363,7 @@
     <ClInclude Include="..\..\..\code\game\item.h" />
     <ClInclude Include="..\..\..\code\game\level.h" />
     <ClInclude Include="..\..\..\code\game\light.h" />
+    <ClInclude Include="..\..\..\code\game\linklist.h" />
     <ClInclude Include="..\..\..\code\game\lodthing.h" />
     <ClInclude Include="..\..\..\code\game\match.h" />
     <ClInclude Include="..\..\..\code\game\misc.h" />

@@ -803,5 +803,8 @@
     <ClInclude Include="..\..\..\code\game\animate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\code\game\linklist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
