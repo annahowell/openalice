@@ -139,6 +139,8 @@ extern "C"
 
 
 #define	MAX_ENTITIES_IN_SNAPSHOT	256
+#define	MAX_SOUNDS_IN_SNAPSHOT		64
+#define	MAX_HUDDRAW_ELEMENTS		256
 
 // snapshots are a view of the server at a given time
 
