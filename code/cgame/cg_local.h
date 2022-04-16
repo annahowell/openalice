@@ -911,7 +911,7 @@ void CG_MultiBeam( centity_t *cent );
 
 //
 // cg_lightstyles.cpp
-void CG_SetLightStyle( int num, const char *s );
+void CG_SetLightStyle( int num, char *s );
 #ifdef __cplusplus
 qboolean CG_LightStyleColor( int style, int realtime, float color[4], qboolean clamp = qfalse );
 #else
