@@ -142,6 +142,7 @@ extern "C"
 #define	MAX_SOUNDS_IN_SNAPSHOT		64
 #define	MAX_HUDDRAW_ELEMENTS		256
 
+
 // snapshots are a view of the server at a given time
 
 // Snapshots are generated at regular time intervals by the server,
@@ -167,6 +168,56 @@ typedef struct {
 	server_sound_t	sounds[ MAX_SERVER_SOUNDS ];
 } snapshot_t;
 
+typedef struct stopwatch_s {
+	int iStartTime;
+	int iEndTime;
+} stopwatch_t;
+
+typedef struct hdelement_s {
+	qhandle_t hShader;
+	char shaderName[64];
+	int iX;
+	int iY;
+	int iWidth;
+	int iHeight;
+	float vColor[4];
+	int iHorizontalAlign;
+	int iVerticalAlign;
+	qboolean bVirtualScreen;
+	char string[2048];
+	char fontName[64];
+	fontheader_t* pFont;
+} hdelement_t;
+
+/*
+==================================================================
+
+clientAnim_t structure, wiped each new gamestate
+reserved for viewmodelanim
+
+==================================================================
+*/
+typedef struct clientAnim_s
+{
+	frameInfo_t		vmFrameInfo[MAX_FRAMEINFOS];
+	int				lastVMAnim;
+	int				lastVMAnimChanged;
+
+	int				currentVMAnimSlot;
+	int				currentVMDuration;
+
+	qboolean		crossBlending;
+
+	int				lastEquippedWeaponStat;
+	char			lastActiveItem[80];
+	int				lastAnimPrefixIndex;
+
+	vec3_t			currentVMPosOffset;
+
+	refEntity_t		ref;
+	dtiki_t* tiki;
+
+} clientAnim_t;
 
 /*
 ==================================================================
